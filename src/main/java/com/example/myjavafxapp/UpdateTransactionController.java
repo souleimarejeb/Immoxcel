@@ -93,14 +93,13 @@ public class UpdateTransactionController implements Initializable {
         return true;
     }
 
-    public void EditOnClickOn(ActionEvent event){
+    public void EditOnClickOnUP(ActionEvent event){
         if (QuantityTextField.getText().isEmpty() || DescrptionTextField.getText().isEmpty() || CostTextField.getText().isEmpty()) {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Message");
             alert.setHeaderText(null);
             alert.setContentText("You need to fill blank field ");
             alert.showAndWait();
-
         }else {
             if(!isNumeric(QuantityTextField.getText()) || !isNumeric(CostTextField.getText()) ){
                 alert=new Alert(Alert.AlertType.ERROR);
@@ -114,17 +113,16 @@ public class UpdateTransactionController implements Initializable {
                     alert.setTitle("Error Message");
                     alert.setContentText(" Description field requires more than 3 caracteres ");
                     alert.showAndWait();
-
                 } else {
 
                     LabelMessage.setText("You Try to do a Transaction ");
                     int quantity = Integer.parseInt(QuantityTextField.getText());
-
 // Convert CostTextField input to a float
                     float cost = Float.parseFloat(CostTextField.getText());
                     int id = Integer.parseInt(idtrans.getText());
                     try {
-                        sp.modifier(new Transaction(id,typeTextField.getValue(), DescrptionTextField.getText(), quantity, cost));
+                        // Here is the Update function
+                        sp.modifier(new Transaction(id,typeTextField.getValue(),DescrptionTextField.getText(),quantity, cost));
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Success");
                         alert.setContentText("GG");

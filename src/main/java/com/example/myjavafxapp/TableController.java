@@ -119,7 +119,7 @@ public class TableController {
                         Stage popupStage= new Stage();
                         popupStage.initModality(Modality.APPLICATION_MODAL);// Make the pop-up Window  model
                         popupStage.initStyle(StageStyle.UTILITY);
-                        popupStage.setTitle("Upsdate Transaction");
+                        popupStage.setTitle("Update Transaction");
                         // set scene to the pop-up window
                         Scene scene = new Scene (root);
                         popupStage.setScene(scene);

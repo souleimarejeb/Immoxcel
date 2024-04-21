@@ -26,10 +26,8 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Display2Controller implements Initializable {
 
@@ -62,14 +60,75 @@ public class Display2Controller implements Initializable {
     void setCancelButtonIDAction(ActionEvent event) {
         Stage stage = (Stage) CancelButton.getScene().getWindow();
         stage.close();
-
     }
     private final ServiceSupplier sp = new ServiceSupplier();
 
     private final ServiceTransaction sptrans = new ServiceTransaction();
+
+    public  void search(ActionEvent event) {
+        cardLayout.getChildren().clear();
+       // cardLayout.getChildren().addAll(SearchList(text_search.getText(), recentlyAdded()));*/
+        String searchQuery = text_search.getText().toLowerCase().trim();
+        List<Transaction> filteredTransactions = filterTransactions(searchQuery);
+        if (filteredTransactions.isEmpty()) {
+            // Display a message when no data is found
+            cardLayout.getChildren().clear();
+            Label noDataLabel = new Label("No data found.");
+            cardLayout.getChildren().add(noDataLabel);
+        } else {
+            // Display the filtered transactions
+            cardLayout.getChildren().clear();
+            cardLayout.getChildren().addAll(createCardBoxesForTransactions(filteredTransactions));
+        }
+    }
+    private boolean transactionContainsSearchWords(Transaction transaction, String searchQuery) {
+        String transactionText = transactionToString(transaction).toLowerCase();
+        return transactionText.contains(searchQuery);
+    }
+    private List<Transaction> filterTransactions(String searchQuery) {
+        return recentlyAdded().stream()
+                .filter(transaction -> transactionContainsSearchWords(transaction, searchQuery))
+                .collect(Collectors.toList());
+    }
+
+    private List<HBox> createCardBoxesForTransactions(List<Transaction> transactions) {
+
+        return transactions.stream()
+                .map(this::createCardBoxForTransaction)
+                .collect(Collectors.toList());
+    }
+    private List<HBox> SearchList(String searchWords, List<Transaction> listofTransactions) {
+        return listofTransactions.stream()
+                .filter(transaction -> transactionContainsSearchWords(transaction, searchWords))
+                .map(this::createCardBoxForTransaction)
+                .collect(Collectors.toList());
+    }
+   /* private boolean transactionContainsSearchWords(Transaction transaction, String searchWords) {
+        String[] searchWordsArray = searchWords.toLowerCase().trim().split("\\s+");
+        String transactionText = transactionToString(transaction).toLowerCase();
+        return Arrays.stream(searchWordsArray).allMatch(transactionText::contains);
+    }*/
+    private String transactionToString(Transaction transaction) {
+        // Implement this method based on how you want to represent a transaction as a string
+        return transaction.getType() + transaction.getDescription() + transaction.getTotalamount() + transaction.getCost();
+    }
+    private HBox createCardBoxForTransaction(Transaction transaction) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("Table.fxml"));
+            HBox cardBox = fxmlLoader.load();
+            TableController cardController = fxmlLoader.getController();
+            cardController.setData(transaction);
+            return cardBox;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        search(null); // Initially display all transactions
+        cardLayout.getChildren().clear();
         try {
             // displaying the data of capital entity
             Capital capital = sptrans.retrieveCurrentCapitalFromDatabase();
@@ -77,7 +136,11 @@ public class Display2Controller implements Initializable {
             expensesLabel.setText(String.valueOf(capital.getExepenses()));
             profitsLabel.setText(String.valueOf(capital.getProfits()));
 
+            // here displaying the data of the transaction
+            //
+            // getting the list of all transactions
             List<Transaction> recentlyAdded = recentlyAdded();
+
             for (Transaction transaction : recentlyAdded) {
                 System.out.println(transaction.getId());
                 FXMLLoader fxmlLoader = new FXMLLoader();
@@ -96,7 +159,6 @@ public class Display2Controller implements Initializable {
         ServiceTransaction sp = new ServiceTransaction();
         // Retrieve all transactions from the database
         Set<Transaction> allTransactions = sp.getAll();
-
         // Convert Set to List for easier manipulation
         transactions.addAll(allTransactions);
         return transactions;

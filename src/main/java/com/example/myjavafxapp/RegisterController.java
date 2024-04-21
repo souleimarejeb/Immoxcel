@@ -21,7 +21,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.*;
 
-
 public class RegisterController  implements Initializable {
 
     @FXML
@@ -207,4 +206,11 @@ public class RegisterController  implements Initializable {
             alert.showAndWait();
         }
     }
+
+
+
+
+
+
+
 }

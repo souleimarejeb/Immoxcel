@@ -26,6 +26,7 @@ import java.net.URL;
 import javafx.stage.StageStyle;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DisplayController implements Initializable {
 
@@ -33,11 +34,11 @@ public class DisplayController implements Initializable {
         private HBox cardLayout;
         @FXML
         private Button CancelButton;
-    @FXML
-    private TextField text_search;
+        @FXML
+        private TextField text_search;
 
-    @FXML
-    private GridPane supplierContainer;
+        @FXML
+        private GridPane supplierContainer;
 
         @FXML
         private Label id;
@@ -49,12 +50,69 @@ public class DisplayController implements Initializable {
 
         private final ServiceSupplier sup = new ServiceSupplier();
 
-        public void setCancelButtonIDAction(ActionEvent event) {
-                Stage stage = (Stage) CancelButton.getScene().getWindow();
-                stage.close();
+    public void setCancelButtonAction(ActionEvent event) {
+        Stage stage = (Stage) CancelButton.getScene().getWindow();
+        stage.close();
+    }
+    public  void search(ActionEvent event) {
+        supplierContainer.getChildren().clear();
+        //cardLayout.getChildren().addAll(SearchList(text_search.getText(), recentlyAdded()));*/
+
+        String searchQuery = text_search.getText().toLowerCase().trim();
+        List<Supplier> filteredSupplier= filterSupplier(searchQuery);
+
+        if (filteredSupplier.isEmpty()) {
+            // Display a message when no data is found
+            supplierContainer.getChildren().clear();
+            Label noDataLabel = new Label("   No data found.");
+            supplierContainer.getChildren().add(noDataLabel);
+        } else {
+            // Display the filtered transactions
+            supplierContainer.getChildren().clear();
+            supplierContainer.getChildren().addAll(createCardBoxesForSupplier(filteredSupplier));
         }
-        @Override
+    }
+
+    private List<Pane> createCardBoxesForSupplier(List<Supplier> supplier) {
+        return supplier.stream()
+                .map(this::PaneBoxForSupplier)
+                .collect(Collectors.toList());
+    }
+    // collect to the words or the attribute that I am looking for  by passing SearchQuery into the paraeters of this function
+    // searchQuery the text that contains the keyword to get the texts that I am looking for using the otyher function that it loooks for the search>WOrds
+    private List<Supplier> filterSupplier(String searchQuery) {
+        return recentlyAdeddSupplier().stream()
+                .filter(supplier -> supplierContainsSearchWords(supplier, searchQuery))
+                .collect(Collectors.toList());
+    }
+
+    private boolean supplierContainsSearchWords(Supplier supplier, String searchQuery) {
+        String supplierText = supplierToString(supplier).toLowerCase();
+        return supplierText.contains(searchQuery);
+    }
+    // convert the attributes to a string
+    private String supplierToString(Supplier supplier) {
+        // Implement this method based on how you want to represent a transaction as a string
+        return supplier.getCompany_name() + supplier.getAddress() + supplier.getPatent_ref() + supplier.getPhone_number()+supplier.getMaterails_s();
+    }
+    private Pane PaneBoxForSupplier(Supplier supplier) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("hello-view.fxml"));
+            Pane cardBox = fxmlLoader.load();
+            SupplierContainerController cardController = fxmlLoader.getController();
+            cardController.setData(supplier);
+            return cardBox;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
+        supplierContainer.getChildren().clear();
+        search(null); // Initially display all supplier
 
                 try {
                         List<Supplier> recentlyAdeddSupplier = recentlyAdeddSupplier();

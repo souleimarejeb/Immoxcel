@@ -59,7 +59,7 @@
                <children>
                   <VBox prefHeight="142.0" prefWidth="192.0" spacing="15.0">
                      <children>
-                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveSupplierButtonOnAction" prefWidth="300.0" style="-fx-background-radius: 20;" styleClass="btn_first_in_the_menu" stylesheets="@Style.css" text="Save" textFill="#c3c9cf">
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#EditOnClickButton" prefWidth="300.0" style="-fx-background-radius: 20;" styleClass="btn_first_in_the_menu" stylesheets="@Style.css" text="Save" textFill="#c3c9cf">
                            <font>
                               <Font size="14.0" />
                            </font>

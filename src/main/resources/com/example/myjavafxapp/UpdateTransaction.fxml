@@ -59,7 +59,7 @@
                   <Font name="Century Gothic" size="14.0" />
                </font>
             </TextField>
-            <Button fx:id="Editbtn" layoutX="20.0" layoutY="308.0" mnemonicParsing="false" onAction="#EditOnClickOn" prefWidth="300.0" style="-fx-background-radius: 20;" styleClass="Deletebtn" stylesheets="@Style.css" text="Save" textFill="#c3c9cf">
+            <Button fx:id="Editbtn" layoutX="20.0" layoutY="308.0" mnemonicParsing="false" onAction="#EditOnClickOnUP" prefWidth="300.0" style="-fx-background-radius: 20;" styleClass="Deletebtn" stylesheets="@Style.css" text="Save" textFill="#c3c9cf">
                <font>
                   <Font size="14.0" />
                </font>

@@ -89,13 +89,11 @@ public class ServiceTransaction implements Iservice<Transaction> {
     public void modifier(Transaction transaction) throws SQLException {
         // Retrieve current capital data from the database
         Capital currentCapital = retrieveCurrentCapitalFromDatabase();
-
         // Ensure currentCapital is not null before proceeding
         if (currentCapital == null) {
             System.out.println("Error: Unable to retrieve current capital data from the database.");
             return;
         }
-
         // Compare currentCapital data with the transaction details
         float totalAmount = transaction.getQuantity() * transaction.getCost();
         String type = transaction.getType();
@@ -119,7 +117,6 @@ public class ServiceTransaction implements Iservice<Transaction> {
             currentCapital.setProfits(currentCapital.getProfits() + totalAmount);
             currentCapital.setBig_capital(currentCapital.getBig_capital() + totalAmount);
         }
-
         // Update capital entity in the database
         String updateCapitalQuery = "UPDATE capital SET salary=?, expenses=?, profits=?, big_capital=? WHERE id=1";
         try (PreparedStatement updateStatement = cnx.prepareStatement(updateCapitalQuery)) {
@@ -127,7 +124,6 @@ public class ServiceTransaction implements Iservice<Transaction> {
             updateStatement.setFloat(2, currentCapital.getExepenses());
             updateStatement.setFloat(3, currentCapital.getProfits());
             updateStatement.setFloat(4, currentCapital.getBig_capital());
-
             int rowsAffected = updateStatement.executeUpdate();
             if (rowsAffected <= 0) {
                 System.out.println("Failed to update capital entity.");
@@ -137,15 +133,10 @@ public class ServiceTransaction implements Iservice<Transaction> {
             System.err.println("Error while updating capital entity: " + e.getMessage());
             throw e;
         }
+        // querry for the updating
         String req = "UPDATE  expenses  SET type=? , Quantity=?, Description=?, cost=?, totalamount=? , archived=false  WHERE id=?";
         System.out.println("the id = "+ transaction.getId());
-
-        System.out.println("i am at the update statement HEYOooooo ");
-        System.out.println(" the type is = "+transaction.getType());
-
         try (PreparedStatement ps = cnx.prepareStatement(req)) {
-
-            System.out.println("i am JUST AFTER TRY  ");
             System.out.println(" the type is = "+transaction.getType());
             ps.setString(1, transaction.getType());
             ps.setInt(2, transaction.getQuantity());
@@ -153,10 +144,8 @@ public class ServiceTransaction implements Iservice<Transaction> {
             ps.setFloat(4, transaction.getCost());
             ps.setFloat(5, totalAmount);
             ps.setInt(6, transaction.getId());
-
             System.out.println("i am AFTERRRRRR  ");
             System.out.println(" the type is = "+transaction.getType());
-
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Transaction updated successfully!");
@@ -167,7 +156,6 @@ public class ServiceTransaction implements Iservice<Transaction> {
             e.printStackTrace();
             throw e;
         }
-
     }
     @Override
     public void supprimer(int id) throws SQLException {
@@ -240,11 +228,12 @@ public class ServiceTransaction implements Iservice<Transaction> {
     public Set<Transaction> getAll()     {
         Set<Transaction> Trans = new HashSet<>();
 
-        String req = " SELECT * FROM expenses WHERE archived=false  ";
+        // dispaying only not archived data
+
+        String req = " SELECT * FROM expenses WHERE archived=false";
         try {
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(req);
-
             while (res.next()){
                 int id = res.getInt("id");
                 java.sql.Date date = res.getDate("date");
@@ -259,7 +248,6 @@ public class ServiceTransaction implements Iservice<Transaction> {
         } catch (SQLException e) {
            e.printStackTrace();
         }
-
         return Trans;
     }
     // Method to retrieve current capital data from the database

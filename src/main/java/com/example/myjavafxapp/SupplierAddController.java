@@ -7,22 +7,29 @@ import Services.ServiceTransaction;
 import Utils.DataSource;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import javafx.scene.image.ImageView;
 
 
 import java.io.File;
+import java.io.FileReader;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.*;
 
-public class SupplierAddController {
+public class SupplierAddController  implements Initializable {
 
     @FXML
     private Button CancelButton;
@@ -51,12 +58,48 @@ public class SupplierAddController {
     private ImageView ImageView;
     @FXML
     private Pane pane_112;
+
+    @FXML
+    private TextField prefixLabel;
+
+
+    @FXML
+    private ComboBox<String> comboboxCountries;
     ServiceSupplier sup = new ServiceSupplier();
     private Image image;
 
     private Alert alert;
 
     Connection cnx = DataSource.getInstance().getCnx();
+
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Read the JSON file
+        JSONParser parser = new JSONParser();
+        try (FileReader reader = new FileReader("C:\\Users\\Alice\\IdeaProjects\\MyJavaFxApp\\src\\main\\resources\\CountryCodes.json")) {
+            // Parse the JSON file
+            Object obj = parser.parse(reader);
+            JSONArray jsonArray = (JSONArray) obj;
+
+            // Extract country names from JSON and add them to a list
+            List<String> countryNames = new ArrayList<>();
+            for (Object o : jsonArray) {
+                JSONObject jsonObject = (JSONObject) o;
+                String countryName = (String) jsonObject.get("name");
+                String phoneNumberPrefix=(String) jsonObject.get("dial_code");
+                countryNames.add(countryName);
+            }
+            System.out.println("Country Names: " + countryNames);
+
+            // Populate the ComboBox with country names
+            comboboxCountries.getItems().addAll(countryNames);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public void supplierInsertImage() {
@@ -79,6 +122,15 @@ public class SupplierAddController {
         return true;
     }
     public void saveSupplierButtonOnAction(ActionEvent event) {
+
+
+        // Create a layout and add the ComboBox to it
+        //VBox root = new VBox(comboBox);
+        //Scene scene = new Scene(root, 300, 200);
+
+        //primaryStage.setTitle("ComboBox from JSON");
+        //primaryStage.setScene(scene);
+        //primaryStage.show();
 
 //       LabelMessage.setText("You Try to add a Supplier  ");
         System.out.println("hell i am inside the add function");
@@ -117,6 +169,9 @@ public class SupplierAddController {
                         String address = addressTextFiled.getText();
                         String Products = ProductTextField.getText();
                         String patentRef = PatentTextField.getText();
+                        //if(comboboxCountries.getValue().equals()
+
+
                          int phone = Integer.parseInt(PhoneNumberTextFiled.getText());
                         String check = "SELECT phone_number FROM supplier WHERE phone_number=?";
                         PreparedStatement statement = cnx.prepareStatement(check);
@@ -144,9 +199,50 @@ public class SupplierAddController {
     }
 
     @FXML
-    void setCancelButtonIDAction(ActionEvent event) {
+    private void setCancelButtonIDAction(ActionEvent event) {
         Stage stage = (Stage)  CancelButton.getScene().getWindow();
         stage.close();
     }
+
+
+    public void CountriesOnClick(ActionEvent event){
+        // Add an event handler to listen for changes in the selected item
+            String selectedItem = comboboxCountries.getValue();
+        JSONParser parser = new JSONParser();
+        try (FileReader reader = new FileReader("C:\\Users\\Alice\\IdeaProjects\\MyJavaFxApp\\src\\main\\resources\\CountryCodes.json")) {
+            // Parse the JSON file
+            Object obj = parser.parse(reader);
+            JSONArray jsonArray = (JSONArray) obj;
+            Map< List<String>,List<String> > map = new HashMap<>();
+
+
+
+            // Extract country names from JSON and add them to a list
+            List<String> countryNames = new ArrayList<>();
+            for (Object o : jsonArray) {
+                JSONObject jsonObject = (JSONObject) o;
+                String countryName = (String) jsonObject.get("name");
+                String phoneNumberPrefix=(String) jsonObject.get("dial_code");
+
+                countryNames.add(countryName);
+
+
+                if(comboboxCountries.getValue().equals(countryName)){
+
+                    System.out.println("Selected Item: " + selectedItem);
+                    System.out.println("the phonenumber=" +phoneNumberPrefix);
+                    prefixLabel.setText(phoneNumberPrefix);
+
+                }
+            }
+            // Populate the ComboBox with country names
+            comboboxCountries.getItems().addAll(countryNames);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 }

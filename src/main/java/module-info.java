@@ -7,6 +7,7 @@ module com.example.myjavafxapp {
     requires com.dlsc.formsfx;
     requires java.sql;
     requires java.xml.crypto;
+    requires json.simple;
 
 
     opens com.example.myjavafxapp to javafx.fxml;
