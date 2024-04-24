@@ -57,7 +57,7 @@ public class SupplierAddController  implements Initializable {
     @FXML
     private ImageView ImageView;
     @FXML
-    private Pane pane_112;
+    private Pane pane_AddSupplier;
 
     @FXML
     private TextField prefixLabel;
@@ -71,6 +71,8 @@ public class SupplierAddController  implements Initializable {
     private Alert alert;
 
     Connection cnx = DataSource.getInstance().getCnx();
+
+    private  DisplayController displayController;
 
 
 
@@ -100,11 +102,19 @@ public class SupplierAddController  implements Initializable {
             e.printStackTrace();
         }
     }
+    void setDisplayController(DisplayController controller){
+        this.displayController=controller;
+    }
+    private void refreshDisplay() {
+        if (displayController != null) {
+            displayController.refrechData();
+        }
+    }
 
 
     public void supplierInsertImage() {
         FileChooser open = new FileChooser();
-        File file = open.showOpenDialog(pane_112.getScene().getWindow());
+        File file = open.showOpenDialog(pane_AddSupplier.getScene().getWindow());
         if (file != null) {
             String imagePath = file.toURI().toString();
             image = new Image(imagePath);
@@ -123,17 +133,7 @@ public class SupplierAddController  implements Initializable {
     }
     public void saveSupplierButtonOnAction(ActionEvent event) {
 
-
-        // Create a layout and add the ComboBox to it
-        //VBox root = new VBox(comboBox);
-        //Scene scene = new Scene(root, 300, 200);
-
-        //primaryStage.setTitle("ComboBox from JSON");
-        //primaryStage.setScene(scene);
-        //primaryStage.show();
-
-//       LabelMessage.setText("You Try to add a Supplier  ");
-        System.out.println("hell i am inside the add function");
+        System.out.println("hell i am inside the addSupplier function");
         //String companyName = companyNameTextFiled.getText();
         //String address = addressTextFiled.getText();
         //String Products = ProductTextField.getText();
@@ -186,7 +186,9 @@ public class SupplierAddController  implements Initializable {
                             sup.ajouter(new Supplier(companyName, address, Products, phone, patentRef, imagePath));
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
                             alert.setTitle("Success");
-                            alert.show();}
+                            alert.show();
+                            refreshDisplay();
+                        }
                     } catch (SQLException e) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("SQL Exception");

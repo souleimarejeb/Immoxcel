@@ -89,7 +89,7 @@ public class CardController {
         }
     }
 
-    public void EditOnClickButton(ActionEvent event){
+    public void EditOnClickButton(ActionEvent event){/*
 
         try {
              int  idTransaction= Integer.parseInt(id.getText());
@@ -143,7 +143,7 @@ public class CardController {
                         alert.setTitle("Error");
                         alert.show();
                     }
-                  */
+
                 }
             });
         } catch (Exception e) {
@@ -151,6 +151,6 @@ public class CardController {
             errorAlert.setTitle("Error");
             errorAlert.setContentText("An unexpected error occurred: " + e.getMessage());
             errorAlert.showAndWait();
-        }
+        }*/
     }
 }

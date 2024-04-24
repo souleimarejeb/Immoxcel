@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="pane_112" prefHeight="565.0" prefWidth="486.0" styleClass="pane_11" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.myjavafxapp.SupplierAddController">
+<Pane fx:id="pane_AddSupplier" prefHeight="590.0" prefWidth="486.0" styleClass="pane_11" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.myjavafxapp.SupplierAddController">
    <children>
       <Label layoutX="9.0" layoutY="63.0" prefHeight="18.0" prefWidth="114.0" text="New Supplier" textFill="#fffefe">
          <font>
@@ -24,34 +24,34 @@
             <Image url="@Pictures/blogger(1).png" />
          </image>
       </ImageView>
-      <VBox layoutX="55.0" layoutY="120.0" prefHeight="431.0" prefWidth="407.0" spacing="3.0">
+      <VBox layoutX="55.0" layoutY="120.0" prefHeight="461.0" prefWidth="390.0" spacing="3.0">
          <children>
             <Label text="Company Name" />
-            <TextField fx:id="companyNameTextFiled" prefHeight="25.0" prefWidth="336.0" promptText="..." styleClass="TransparentWithConditionsForLabelForm" stylesheets="@Style.css">
+            <TextField fx:id="companyNameTextFiled" prefHeight="30.0" prefWidth="340.0" promptText="..." styleClass="pane_AddSupplier" stylesheets="@Style.css">
                <font>
                   <Font name="Century Gothic Bold" size="14.0" />
                </font></TextField>
             <Label prefHeight="18.0" prefWidth="114.0" text="Address" />
-            <TextField fx:id="addressTextFiled" prefHeight="25.0" prefWidth="336.0" promptText="..." styleClass="TransparentWithConditionsForLabelForm" stylesheets="@Style.css">
+            <TextField fx:id="addressTextFiled" prefHeight="25.0" prefWidth="336.0" promptText="..." styleClass="pane_AddSupplier" stylesheets="@Style.css">
                <font>
                   <Font name="Century Gothic Bold" size="14.0" />
                </font></TextField>
             <Label prefHeight="18.0" prefWidth="90.0" text="Product" />
-            <TextField fx:id="ProductTextField" prefHeight="25.0" prefWidth="336.0" promptText="..." styleClass="TransparentWithConditionsForLabelForm" stylesheets="@Style.css">
+            <TextField fx:id="ProductTextField" prefHeight="25.0" prefWidth="336.0" promptText="..." styleClass="pane_AddSupplier" stylesheets="@Style.css">
                <font>
                   <Font name="Century Gothic Bold" size="14.0" />
                </font></TextField>
             <Label layoutX="10.0" layoutY="114.0" prefHeight="18.0" prefWidth="90.0" text="Country" />
-            <ComboBox fx:id="comboboxCountries" onAction="#CountriesOnClick" prefHeight="26.0" prefWidth="389.0" />
+            <ComboBox fx:id="comboboxCountries" onAction="#CountriesOnClick" prefHeight="26.0" prefWidth="389.0" styleClass="pane_AddSupplier" stylesheets="@Style.css" />
             <Label prefHeight="18.0" prefWidth="137.0" text="Phone number" />
             <HBox spacing="30.0">
                <children>
-                  <TextField fx:id="prefixLabel" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="57.0" styleClass="TransparentWithConditionsForLabelForm" stylesheets="@Style.css">
+                  <TextField fx:id="prefixLabel" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="57.0" styleClass="pane_AddSupplier" stylesheets="@Style.css">
                      <font>
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="PhoneNumberTextFiled" prefHeight="30.0" prefWidth="236.0" styleClass="TransparentWithConditionsForLabelForm" stylesheets="@Style.css">
+                  <TextField fx:id="PhoneNumberTextFiled" prefHeight="30.0" prefWidth="236.0" styleClass="pane_AddSupplier" stylesheets="@Style.css">
                      <font>
                         <Font name="Century Gothic Bold" size="14.0" />
                      </font>
@@ -59,11 +59,11 @@
                </children>
             </HBox>
             <Label text="Patent Ref" />
-            <TextField fx:id="PatentTextField" prefHeight="25.0" prefWidth="336.0" styleClass="TransparentWithConditionsForLabelForm" stylesheets="@Style.css">
+            <TextField fx:id="PatentTextField" prefHeight="25.0" prefWidth="336.0" styleClass="pane_AddSupplier" stylesheets="@Style.css">
                <font>
                   <Font name="Century Gothic Bold" size="14.0" />
                </font></TextField>
-            <HBox spacing="20.0">
+            <HBox prefHeight="132.0" prefWidth="390.0" spacing="20.0">
                <children>
                   <VBox prefHeight="142.0" prefWidth="192.0" spacing="15.0">
                      <children>
@@ -81,15 +81,18 @@
                            </font>
                         </Button>
                      </children>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
                   </VBox>
                   <VBox onMouseClicked="#supplierInsertImage" prefHeight="151.0" prefWidth="133.0" spacing="12.0">
                      <children>
                         <Pane style="-fx-border-color: #FD9999; -fx-focus-traversable: 0 0 0 0;" VBox.vgrow="ALWAYS">
                            <children>
-                              <ImageView fx:id="ImageView" fitHeight="93.0" fitWidth="134.0" onMouseClicked="#supplierInsertImage" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="ImageView" fitHeight="58.0" fitWidth="98.0" layoutX="13.0" layoutY="10.0" onMouseClicked="#supplierInsertImage" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </Pane>
-                        <Button mnemonicParsing="false" onAction="#supplierInsertImage" prefHeight="30.0" prefWidth="145.0" styleClass="btn_second_in_the_menu" stylesheets="@Style.css" text="Import" textFill="#efefef" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="145.0" styleClass="btn_second_in_the_menu" stylesheets="@Style.css" text="Import" textFill="#efefef" />
                      </children>
                      <padding>
                         <Insets top="6.0" />

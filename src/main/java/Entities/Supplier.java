@@ -36,12 +36,13 @@ public class Supplier {
         this.Image=Image;
     }
 
-    public Supplier(String company_name) {
+    public Supplier(String company_name,int id) {
         this.Company_name = company_name;
+        this.Id_supp=id;
     }
-    public Supplier(String image,int id ) {
+    /*public Supplier(String image,int id ) {
         this.Image = image;
-    }
+    }*/
 
     public Supplier(int id_supp, String company_name, String address, String materails_s, int phone_number, String patent_ref,String Image) {
         this.Id_supp = id_supp;

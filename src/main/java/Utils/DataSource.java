@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 public class DataSource {
-    private final String URL = "jdbc:mysql://localhost:3306/test";
+    private final String URL = "jdbc:mysql://localhost:3306/immoxcel";
     private final String USER = "root";
     private final String PWD = "";
 

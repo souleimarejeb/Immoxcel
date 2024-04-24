@@ -133,12 +133,12 @@
                   <Button fx:id="CancelButton" layoutX="536.0" layoutY="345.0" mnemonicParsing="false" onAction="#setCancelButtonIDAction" text="cancel" />
                   <ScrollPane layoutX="14.0" layoutY="71.0" prefHeight="386.0" prefWidth="796.0">
                      <content>
-                        <VBox fx:id="cardLayout" prefHeight="288.0" prefWidth="682.0" spacing="20.0" />
+                        <VBox fx:id="cardLayout" prefHeight="288.0" prefWidth="713.0" spacing="20.0" />
                      </content>
                   </ScrollPane>
-                  <HBox fx:id="HboxTopTitle" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="51.0" prefWidth="786.0" spacing="50.0" styleClass="HboxTopTitle" stylesheets="@Style.css">
+                  <HBox fx:id="HboxTopTitle" alignment="CENTER" layoutX="10.0" layoutY="8.0" prefHeight="53.0" prefWidth="802.0" spacing="50.0" styleClass="HboxTopTitle" stylesheets="@Style.css">
                      <children>
-                        <Pane prefHeight="35.0" prefWidth="772.0">
+                        <Pane prefHeight="41.0" prefWidth="787.0">
                            <children>
                               <Label layoutX="14.0" layoutY="5.0" prefHeight="18.0" prefWidth="38.0" text="Date">
                                  <font>
@@ -155,22 +155,22 @@
                                     <Font name="Century Gothic" size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="307.0" layoutY="6.0" text="Quantity">
+                              <Label layoutX="400.0" layoutY="6.0" text="Quantity">
                                  <font>
                                     <Font name="Century Gothic" size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="403.0" layoutY="6.0" text="Total Amount ">
+                              <Label layoutX="478.0" layoutY="6.0" text="Total Amount ">
                                  <font>
                                     <Font name="Century Gothic" size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="609.0" layoutY="6.0" text="Action">
+                              <Label layoutX="665.0" layoutY="6.0" text="Action">
                                  <font>
                                     <Font name="Century Gothic" size="14.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="newAddbutton1" layoutX="702.0" layoutY="1.0" mnemonicParsing="false" onAction="#newTransactionPopUp" styleClass="newAddbutton" stylesheets="@Style.css" text="New" textFill="#c7bdbd">
+                              <Button fx:id="newAddbutton1" layoutX="730.0" layoutY="1.0" mnemonicParsing="false" onAction="#newTransactionPopUp" styleClass="newAddbutton" stylesheets="@Style.css" text="New" textFill="#c7bdbd">
                                  <font>
                                     <Font name="Century Gothic Bold" size="12.0" />
                                  </font>

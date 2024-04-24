@@ -59,7 +59,7 @@
                <children>
                   <VBox prefHeight="142.0" prefWidth="192.0" spacing="15.0">
                      <children>
-                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#EditOnClickButton" prefWidth="300.0" style="-fx-background-radius: 20;" styleClass="btn_first_in_the_menu" stylesheets="@Style.css" text="Save" textFill="#c3c9cf">
+                        <Button fx:id="EditOnClickButtonUpdate" mnemonicParsing="false" onAction="#EditOnClickButtonUpdate" prefWidth="300.0" style="-fx-background-radius: 20;" styleClass="btn_first_in_the_menu" stylesheets="@Style.css" text="Save" textFill="#c3c9cf">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -67,18 +67,21 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="CancelButton" mnemonicParsing="false" onAction="#setCancelButtonIDAction" prefWidth="300.0" style="-fx-background-radius: 20;" styleClass="btn_second_in_the_menu" stylesheets="@Style.css" text="Canel" textFill="#c3c9cf">
+                        <Button fx:id="CancelButton" mnemonicParsing="false" onAction="#setCancelButtonIDActionUpdate" prefWidth="300.0" style="-fx-background-radius: 20;" styleClass="btn_second_in_the_menu" stylesheets="@Style.css" text="Canel" textFill="#c3c9cf">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
                      </children>
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
                   </VBox>
                   <VBox onMouseClicked="#supplierInsertImage" prefHeight="151.0" prefWidth="133.0" spacing="12.0">
                      <children>
                         <Pane style="-fx-border-color: #FD9999; -fx-focus-traversable: 0 0 0 0;" VBox.vgrow="ALWAYS">
                            <children>
-                              <ImageView fx:id="ImageView" fitHeight="93.0" fitWidth="134.0" onMouseClicked="#supplierInsertImage" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="ImageView" fitHeight="70.0" fitWidth="86.0" layoutX="24.0" layoutY="16.0" onMouseClicked="#supplierInsertImage" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </Pane>
                         <Button mnemonicParsing="false" onAction="#supplierInsertImage" prefHeight="30.0" prefWidth="145.0" styleClass="btn_second_in_the_menu" stylesheets="@Style.css" text="Import" textFill="#efefef" />
@@ -91,6 +94,6 @@
             </HBox>
          </children>
       </VBox>
-      <Label fx:id="idSup" layoutX="41.0" layoutY="110.0" opacity="0.0" text="Label" />
+      <TextField fx:id="idSuppTextField" layoutX="14.0" layoutY="114.0" opacity="0.0" prefHeight="25.0" prefWidth="35.0" />
    </children>
 </Pane>

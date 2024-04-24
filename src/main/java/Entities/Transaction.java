@@ -4,7 +4,7 @@ import java.util.Objects;
 public class Transaction {
     private int id;
     private String Type;
-    private int Quantity;
+    private float Quantity;
     private float  Cost;
     private float  totalamount;
     private boolean  archived;
@@ -14,6 +14,24 @@ public class Transaction {
 
     private Supplier Supplier_entity;
 
+
+    public Transaction( String type, String description, float quantity, float cost,Supplier supplier_entity) {
+
+        Type = type;
+        Quantity = quantity;
+        Cost = cost;
+        Supplier_entity = supplier_entity;
+        Description = description;
+    }
+
+    public Transaction(int id, String type, String description, float quantity, float cost, Supplier supplier1) {
+        this.id=id;
+        Type = type;
+        Quantity = quantity;
+        Cost = cost;
+        Supplier_entity = supplier1;
+        Description = description;
+    }
 
     public Supplier getSupplier_entity() {
         return Supplier_entity;
@@ -57,25 +75,23 @@ public class Transaction {
         return archived;
     }
 
-    private Transaction transaction;
-
     public Transaction(){
 
     }
-    public Transaction(int id ,String type,String description,int Quantity, float cost){
+    public Transaction(int id ,String type,String description,float Quantity, float cost){
         this.id=id;
         this.Type=type;
         this.Description=description;
         this.Quantity=Quantity;
         this.Cost=cost;
     }
-    public Transaction(String type,String description,int Quantity, float cost){
+    public Transaction(String type,String description,float Quantity, float cost){
         this.Type=type;
         this.Description=description;
         this.Quantity=Quantity;
         this.Cost=cost;
     }
-    public Transaction(int id,Date date,String type ,String Description , int Quantity,float cost ,float totalAmount){
+    public Transaction(int id,Date date,String type ,String Description , float Quantity,float cost ,float totalAmount){
         this.id = id;
         this.Type=type;
         this.Quantity=Quantity;
@@ -85,7 +101,7 @@ public class Transaction {
         this.date=date;
     }
 
-  /*  public Transaction(String Type, int Quantity,float cost ,String Description,boolean archived,float totalamount ,Date date) {
+  /*  public Transaction(String Type, float Quantity,float cost ,String Description,boolean archived,float totalamount ,Date date) {
         this.Type=Type;
         this.Quantity=Quantity;
         this.Cost=cost;
@@ -95,16 +111,6 @@ public class Transaction {
         this.date=date;
     }*/
 
-   /* public Transaction(int id,Date date,String Type, int Quantity,String Description,float cost,float totalamount,boolean archived) {
-        this.id = id;
-        this.Type=Type;
-        this.Quantity=Quantity;
-        this.Cost=cost;
-        this.Description=Description;
-        this.archived=archived;
-        this.totalamount=totalamount;
-        this.date=date;
-    }*/
 
     public int getId() {
         return id;
@@ -114,7 +120,7 @@ public class Transaction {
         return Type;
     }
 
-    public int getQuantity() {
+    public float getQuantity() {
         return Quantity;
     }
 
@@ -126,9 +132,6 @@ public class Transaction {
         return Description;
     }
 
-    public Transaction getTransaction() {
-        return transaction;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -138,7 +141,7 @@ public class Transaction {
         Type = type;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(float quantity) {
         Quantity = quantity;
     }
 
@@ -150,9 +153,6 @@ public class Transaction {
         Description = description;
     }
 
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
-    }
 
     @Override
     public boolean equals(Object o) {

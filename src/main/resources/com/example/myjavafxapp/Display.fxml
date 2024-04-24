@@ -109,7 +109,7 @@
                         </Button>
                      </children>
                   </HBox>
-                  <Button fx:id="CancelButton" layoutX="791.0" layoutY="27.0" mnemonicParsing="false" onAction="#setCancelButtonAction" text="Cancel" />
+                  <Button fx:id="CancelButton" layoutX="791.0" layoutY="27.0" mnemonicParsing="false"  text="Cancel" />
                </children>
             </Pane>
             <Text fx:id="allSuppliersLabel" layoutX="32.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Suppliers" wrappingWidth="154.0">

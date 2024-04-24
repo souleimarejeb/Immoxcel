@@ -55,7 +55,8 @@ public class TableController {
         typeTextField.setText(transaction.getType());
         Quantity.setText(String.valueOf(transaction.getQuantity()));
         Descrption.setText(transaction.getDescription());
-        TotalAmount.setText(String.valueOf(transaction.getCost()));
+        TotalAmount.setText(String.valueOf(transaction.getTotalamount()));
+
     }
     public void deleteOnClickButton(ActionEvent event ) {
         try {
@@ -149,6 +150,40 @@ public class TableController {
             errorAlert.setContentText("An unexpected error occurred: " + e.getMessage());
             errorAlert.showAndWait();
         }
+    }
+
+    @FXML
+    void ArchiveOnClick(ActionEvent event) {
+        try {
+            int  idTransaction= Integer.parseInt(id.getText());
+            System.out.println("l'id de transaction que vous voulez faire une transaction "+idTransaction);
+            // Ask for confirmation before deleting
+            Alert confirmationAlert =  new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Update Transaction");
+            confirmationAlert.setHeaderText("Are you sure you want to update this transaction?");
+            confirmationAlert.setContentText("This action cannot be undone.");
+            confirmationAlert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                        Transaction transaction = sp.getOneById(idTransaction);
+                        if (transaction != null) {
+                            System.out.println("Transaction id found in Archive found  : "+transaction.getId());
+                            sp.archiver(idTransaction);
+                            Card.getChildren().clear();
+                            Card.setVisible(false); // Hide the card
+                            Card.setManaged(false); // Make sure it's not managed by the layout
+                        } else {
+                            System.out.println("Transaction with ID " + idTransaction + " not found.");
+                        }
+                }
+            });
+        } catch (Exception e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error");
+            errorAlert.setContentText("An unexpected error occurred: " + e.getMessage());
+            errorAlert.showAndWait();
+        }
+
+
     }
 
 }

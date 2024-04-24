@@ -160,12 +160,14 @@
     -fx-background-color:rgba(0,0,0,0);
     -fx-border-color: #FD9999;
     -fx-border-width: 0 0 2 0;
+    -fx-text-fill:White;
     -fx-color:white;
 }
 .TransparentWithConditionsLabel{
     -fx-background-color: #D3D3D3;
     -fx-border-color: #FD9999;
     -fx-border-width: 0 0 2 0;
+    -fx-text-fill:White;
     -fx-color:black;
 }
 .Pane112Container{
@@ -174,6 +176,14 @@
 
 .ClearButton{
     -fx-background-color:#E71036;
-    -fx-text-fill:white;
+    -fx-text-fill:Noir;
     -fx-border-color:white;
+}
+.pane_AddSupplier{
+    -fx-background-color:rgba(0,0,0,0);
+    -fx-border-color: #FD9999;
+    -fx-border-width: 0 0 2 0;
+    -fx-text-fill:black;
+    -fx-color:white;
+
 }

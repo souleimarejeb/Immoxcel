@@ -5,7 +5,9 @@ import Entities.Transaction;
 import Utils.DataSource;
 
 import java.sql.*;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class ServiceSupplier implements Iservice <Supplier> {
@@ -155,7 +157,7 @@ public class ServiceSupplier implements Iservice <Supplier> {
             while (res.next()){
                 int id = res.getInt("id");
                 String companyName = res.getString("company_name");
-                Supplier p= new Supplier(companyName );
+                Supplier p= new Supplier(companyName,id );
                 sup.add(p);
             }
         } catch (SQLException e) {
@@ -163,21 +165,20 @@ public class ServiceSupplier implements Iservice <Supplier> {
         }
         return sup;
     }
-    public Set<Supplier> getImage()  {
-        Set<Supplier> sup = new HashSet<>();
-        String req = " Select * from supplier where id=7";
+    public Map<String, Integer> getSupplierNameAndIdMap() {
+        Map<String, Integer> supplierMap = new HashMap<>();
+        String req = "SELECT id, company_name FROM supplier";
         try {
             Statement st = cnx.createStatement();
             ResultSet res = st.executeQuery(req);
-            while (res.next()){
+            while (res.next()) {
                 int id = res.getInt("id");
-                String image = res.getString("image");
-                Supplier p= new Supplier(image,id);
-                sup.add(p);
+                String companyName = res.getString("company_name");
+                supplierMap.put(companyName, id);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return sup;
+        return supplierMap;
     }
 }

@@ -12,10 +12,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class UpdateTransactionController implements Initializable {
     @FXML
@@ -36,20 +33,10 @@ public class UpdateTransactionController implements Initializable {
     private Label idtrans;
 
     ServiceTransaction sp = new ServiceTransaction();
-    private String [] suppliername =companyNames();
+    private  ServiceTransaction transaction = new ServiceTransaction();
+    private  ServiceSupplier supplier = new ServiceSupplier() ;
+    private Map<String, Integer> supplierMap;
 
-    private String[] companyNames(){
-        List<String> names = new ArrayList<>();
-        ServiceSupplier sup = new ServiceSupplier();
-        // Retrieve all suppliers from the database
-        Set<Supplier> allSuppliers = sup.getName();
-        // Iterate over each supplier and extract their names
-        for (Supplier supplier : allSuppliers) {
-            names.add(supplier.getCompany_name());
-        }
-        String[] namesArray = names.toArray(new String[0]);
-        return namesArray;
-    }
 
     private String [] type ={"Income","Salary","Expenses"};
     private Alert alert;
@@ -57,14 +44,15 @@ public class UpdateTransactionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         typeTextField.getItems().addAll(type);
-        SupplierComboBox.getItems().addAll(suppliername);
+        supplierMap = supplier.getSupplierNameAndIdMap(); // Initialize supplierMap
+        SupplierComboBox.getItems().addAll(supplierMap.keySet());
     }
 
     public void setCancelButtonIDAction(ActionEvent event ){
         Stage stage = (Stage)  CancelButton.getScene().getWindow();
         stage.close();
     }
-    public void setFields(int id,String Type, int q, String Description , float c  ){
+    public void setFields(int id,String Type, float q, String Description , float c  ){
         System.out.println("///////////////////////////////////////////////////////////");
         try {
             String idyo = String.valueOf(id);
@@ -94,7 +82,7 @@ public class UpdateTransactionController implements Initializable {
     }
 
     public void EditOnClickOnUP(ActionEvent event){
-        if (QuantityTextField.getText().isEmpty() || DescrptionTextField.getText().isEmpty() || CostTextField.getText().isEmpty()) {
+        if (QuantityTextField.getText().isEmpty() || DescrptionTextField.getText().isEmpty() || CostTextField.getText().isEmpty() || SupplierComboBox.getValue()== null ||typeTextField.getValue()==null) {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Message");
             alert.setHeaderText(null);
@@ -116,22 +104,32 @@ public class UpdateTransactionController implements Initializable {
                 } else {
 
                     LabelMessage.setText("You Try to do a Transaction ");
-                    int quantity = Integer.parseInt(QuantityTextField.getText());
-// Convert CostTextField input to a float
+                    float quantity = Float.parseFloat(QuantityTextField.getText());
+                    // Convert CostTextField input to a float
                     float cost = Float.parseFloat(CostTextField.getText());
                     int id = Integer.parseInt(idtrans.getText());
-                    try {
-                        // Here is the Update function
-                        sp.modifier(new Transaction(id,typeTextField.getValue(),DescrptionTextField.getText(),quantity, cost));
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Success");
-                        alert.setContentText("GG");
-                        alert.show();
-                    } catch (SQLException e) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("SQL Exception");
-                        alert.setContentText(e.getMessage());
-                        alert.showAndWait();
+                    String selectedName = SupplierComboBox.getValue(); // Get selected supplier name
+                    System.out.println("selectted Name = "+selectedName);
+                    int supplierId = supplierMap.get(selectedName); // Get ID from supplierMap
+                    if (SupplierComboBox.getValue().isEmpty()) {
+                        System.out.println("it is empty");
+                        supplierId=5;
+                    }
+                    else {
+                        Supplier supplier1 = transaction.getOneByIdSupplier(supplierId);
+                        try {
+                            // Here is the Update function
+                            sp.modifier(new Transaction(id, typeTextField.getValue(), DescrptionTextField.getText(), quantity, cost,supplier1));
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Success");
+                            alert.setContentText("GG");
+                            alert.show();
+                        } catch (SQLException e) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("SQL Exception");
+                            alert.setContentText(e.getMessage());
+                            alert.showAndWait();
+                        }
                     }
                 }
             }

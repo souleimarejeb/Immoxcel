@@ -17,7 +17,7 @@
             <Font name="Century Gothic Bold" size="17.0" />
          </font>
       </Text>
-      <Label fx:id="companyName" layoutX="14.0" layoutY="43.0" prefHeight="17.0" prefWidth="47.0" text="Label" textFill="#fffefe">
+      <Label fx:id="companyName" layoutX="14.0" layoutY="43.0" prefHeight="26.0" prefWidth="86.0" text="Label" textFill="#fffefe">
          <font>
             <Font name="Century Gothic" size="13.0" />
          </font>
@@ -28,7 +28,7 @@
             <Font name="Century Gothic Bold" size="17.0" />
          </font>
       </Text>
-      <Label fx:id="phoneNumber" layoutX="14.0" layoutY="110.0" prefHeight="26.0" prefWidth="47.0" text="Label" textFill="#fffefe">
+      <Label fx:id="phoneNumber" layoutX="14.0" layoutY="110.0" prefHeight="26.0" prefWidth="73.0" text="Label" textFill="#fffefe">
          <font>
             <Font name="Century Gothic" size="13.0" />
          </font>
@@ -37,7 +37,7 @@
          <children>
             <Button fx:id="editButton" mnemonicParsing="false" onAction="#EditOnClickButton" text="Edit " />
             <Button mnemonicParsing="false" onAction="#deleteOnClickButton" text="Delete" />
-            <Button mnemonicParsing="false" text="Details">
+            <Button mnemonicParsing="false" onAction="#detailsOnclickbtn" text="Details">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
